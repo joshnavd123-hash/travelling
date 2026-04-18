@@ -3,40 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Blogs</title>
+    <title>Travel Blog</title>
+    <style>
+        :root {
+            --accent: #1b3a5c;
+            --accent-light: #f3f7ff;
+            --text: #222;
+            --muted: #5b6770;
+            --card: rgba(255, 255, 255, 0.92);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: #eef2f7;
+        }
+
+        header {
+            background: white;
+            padding: 22px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dde4ed;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+        }
+
+        .brand h1 {
+            font-size: 1.35rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            min-height: 78vh;
+            background-image: linear-gradient(rgba(21, 47, 88, 0.35), rgba(21, 47, 88, 0.35)),
+                url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: grid;
+            place-items: center;
+            padding: 80px 32px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            backdrop-filter: blur(8px);
+            padding: 36px;
+            background: rgba(8, 24, 56, 0.55);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: #e5ecff;
+            max-width: 760px;
+            margin: 0 auto 24px;
+        }
+
+        .hero .btn-primary {
+            background: #ff865b;
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .hero .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(255, 134, 91, 0.22);
+        }
+
+        .section-grid {
+            display: grid;
+            gap: 28px;
+            padding: 48px 32px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: grid;
+            gap: 20px;
+            background: white;
+            padding: 36px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .intro h3 {
+            color: var(--accent);
+            font-size: 1.85rem;
+        }
+
+        .intro p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .cards {
+            display: grid;
+            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: grid;
+            row-gap: 14px;
+        }
+
+        .card img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-body h4 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .card-body p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .highlight {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .highlight img {
+            width: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            height: 100%;
+            min-height: 340px;
+        }
+
+        .highlight-content {
+            padding: 24px;
+            background: var(--card);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-content h3 {
+            font-size: 1.9rem;
+            margin-bottom: 16px;
+        }
+
+        .highlight-content ul {
+            list-style: disc inside;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 26px 32px;
+            background: var(--accent);
+            color: white;
+            text-align: center;
+        }
+
+        footer p {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 860px) {
+            .highlight {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header style="background-color: lightblue; width: 1600px; ">
-        <img src="./logo.png" alt="travel logo" style="height: 50px; width: 50px;">
-        <h1>LET'S TRAVEL THE WORLD</h1>
-        
+    <header>
+        <div class="brand">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=200&q=80" alt="Travel logo">
+            <div>
+                <h1>Travel Notes</h1>
+                <p style="font-size:0.92rem; color: var(--muted);">Exploring cities, coastlines, and culture.</p>
+            </div>
+        </div>
+
         <nav>
-            <ul type="none" style="display: flex;">
-                <li>HOME</li>
-                <li>ABOUT</li>
-                <li>CONTACT</li>
-                <li>LOCATIONS</li>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#stories">Stories</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <main style="height: 600px; width: 1600px; background-color: rgb(228, 135, 191);">
-        <div style="display: flex;">
-            <aside style="background-color: bisque; height: 500PX; width: 200PX;">  
-                ABOUT MYSELF:<BR>
-                I AM A TRAVEL LOVER WHO LOVES TO EXPLORE NEW PLACES, TRY NEW CUISINES, AND INTERACT WITH NEW PEOPLE. AND THESE ARE MY EXPERIENCES.
-            </aside>
-        <h1 style="color: blue;"> Welcome to my travel blog</h1>
-        <article style="background-color: rgb(131, 215, 135);height: 600px; width: 600px; ">MY FIRST TRIP WAS TO PARIS, FRANCE. i am excited to share my experiences with you!</article>
-    <section style="background-color: blueviolet; height: 600px; width: 600px;">
-       paris is the capital city of france and is known for its iconic landmarks such as the eiffel tower, the louvre museum, and notre dame cathedral. i had an amazing time exploring the city and trying out the delicious french cuisine. i can't wait to share more about my trip in future posts!
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Every journey begins with a single step.</h2>
+            <p>Welcome to the travel blog where every destination is captured with inspiring stories, vivid photography, and local food adventures. Find your next escape, one city at a time.</p>
+            <button class="btn-primary">Explore Destinations</button>
+        </div>
     </section>
-</div>
-</main>
-<footer style="height: 50PX; width: 1600px; background-color: lightblue;">
-    <p>Copyright 2024 Travel Blog. All rights reserved.
-        DESIGNED WITH PASSION IN TRAVELLING AND SHARING EXPERIENCES. STAY TUNED FOR MORE ADVENTURES!
-    </p>
-</footer>
-    
+
+    <section class="section-grid">
+        <div class="intro" id="about">
+            <h3>About This Travel Journal</h3>
+            <p>As a designer and traveler, I love mixing beautiful visual storytelling with practical tips. From Paris to Bali, each entry highlights the best places to stay, eat, and explore.</p>
+        </div>
+
+        <div class="cards" id="stories">
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=900&q=80" alt="Paris skyline">
+                <div class="card-body">
+                    <h4>Parisian Story</h4>
+                    <p>Discover the magic of Parisian nights between the Eiffel Tower lights and charming cafés in Le Marais.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80" alt="Tropical beach">
+                <div class="card-body">
+                    <h4>Coastal Escape</h4>
+                    <p>Relax on golden beaches, chase hidden waterfalls, and savor sunsets on the coast of a sun-drenched island.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=80" alt="City cafe culture">
+                <div class="card-body">
+                    <h4>Cultural City Walks</h4>
+                    <p>Walk cobblestone streets, taste market flavors, and feel the rhythm of a city alive with art and architecture.</p>
+                </div>
+            </article>
+        </div>
+
+        <div class="highlight" id="gallery">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80" alt="Travel destination highlight">
+            <div class="highlight-content">
+                <h3>Designing a Travel Experience</h3>
+                <p>Travel is more than destinations; it is the story, the design, and the emotions behind every place.</p>
+                <ul>
+                    <li>Creative layouts for destination previews</li>
+                    <li>Curated photography from Unsplash</li>
+                    <li>Practical tips for unforgettable trips</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Copyright 2026 Travel Notes. Crafted with passion for explorers and design lovers. Stay inspired and keep planning your next adventure.</p>
+    </footer>
 </body>
 </html>
